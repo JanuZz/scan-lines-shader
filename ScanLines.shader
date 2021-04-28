@@ -3,7 +3,7 @@ Shader "Hidden/ScanLines"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _Amount("Amount", Range(1, 10000)) = 100
+        _Amount("Amount", Range(1, 25)) = 2
     }
     SubShader
     {
@@ -44,7 +44,7 @@ Shader "Hidden/ScanLines"
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
-                return col * min(fmod(round(i.uv.y * _ScreenParams.y),round(_ScreenParams.y / _Amount + 1)), 1);
+                return col * min(fmod(round(i.uv.y * _ScreenParams.y),_Amount), 1);
             }
             ENDCG
         }
